@@ -41,4 +41,4 @@ jobs:
         run: npm install -g aws-cdk
 
       - name: Deploy CDK stack
-        run: cd packages/infra && npx cdk deploy --require-approval never
+        run: cd packages/infra && npx cdk deploy WeddingWeb --require-approval never
