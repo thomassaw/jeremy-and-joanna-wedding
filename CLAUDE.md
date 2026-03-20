@@ -53,6 +53,12 @@ wedding/
 │   └── infra/              — AWS CDK (TBD)
 ```
 
+## AWS
+- **Account:** 268094410367
+- **Region:** ap-southeast-1
+- **Auth:** AWS SSO via `aws sso login` (SSO start URL: `https://d-9667bdf892.awsapps.com/start`)
+- **Role:** FullAccessRole
+
 ## Conventions
 - Functional components only, no class components
 - State lives in App.tsx and is passed down via props
