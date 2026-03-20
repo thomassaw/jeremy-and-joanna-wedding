@@ -1,0 +1,81 @@
+{
+  "version": "52.0.0",
+  "files": {
+    "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6": {
+      "displayName": "WeddingWeb/Custom::S3AutoDeleteObjectsCustomResourceProvider Code",
+      "source": {
+        "path": "asset.faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-9d4f465e": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "faa95a81ae7d7373f3e1f242268f904eb748d8d0fdd306e8a6fe515a1905a7d6.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    },
+    "0cfdecad2260a3a84ad0c2d08a77e03c9d25e26c7b52f26b1e1faf97aef92f18": {
+      "displayName": "DeployWeb/AwsCliLayer/Code",
+      "source": {
+        "path": "asset.0cfdecad2260a3a84ad0c2d08a77e03c9d25e26c7b52f26b1e1faf97aef92f18.zip",
+        "packaging": "file"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-b5133e74": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "0cfdecad2260a3a84ad0c2d08a77e03c9d25e26c7b52f26b1e1faf97aef92f18.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    },
+    "3423a042b818e31c1e34a19d6689ab2e5f9b70fcbe9e71df66f241b20a200bd9": {
+      "displayName": "Custom::CDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C/Code",
+      "source": {
+        "path": "asset.3423a042b818e31c1e34a19d6689ab2e5f9b70fcbe9e71df66f241b20a200bd9",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-ad3af78b": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "3423a042b818e31c1e34a19d6689ab2e5f9b70fcbe9e71df66f241b20a200bd9.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    },
+    "62aae6e85f30a95e34660c22953c205bdf8ab522700e2536e18bc76f03e0c705": {
+      "displayName": "DeployWeb/Asset1",
+      "source": {
+        "path": "asset.62aae6e85f30a95e34660c22953c205bdf8ab522700e2536e18bc76f03e0c705",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-33849a60": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "62aae6e85f30a95e34660c22953c205bdf8ab522700e2536e18bc76f03e0c705.zip",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    },
+    "56d745b73f399005837a79c899f8010e8157c766434700a3f06d6a4ff5ff62ea": {
+      "displayName": "WeddingWeb Template",
+      "source": {
+        "path": "WeddingWeb.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-cb2bf8c5": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "56d745b73f399005837a79c899f8010e8157c766434700a3f06d6a4ff5ff62ea.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,107 @@
+{
+ "Resources": {
+  "GitHubActionsDeployRoleA6F4AD3D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+        },
+        "StringLike": {
+         "token.actions.githubusercontent.com:sub": "repo:thomassaw/jeremy-and-joanna-wedding:ref:refs/heads/main"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": "arn:aws:iam::268094410367:oidc-provider/token.actions.githubusercontent.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "Role assumed by GitHub Actions to deploy the wedding site via CDK",
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AdministratorAccess"
+       ]
+      ]
+     }
+    ],
+    "MaxSessionDuration": 3600,
+    "RoleName": "github-actions-deploy"
+   },
+   "Metadata": {
+    "aws:cdk:path": "WeddingCi/GitHubActionsDeployRole/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXMTQqAIBBA4bO016nEG3SAwA4QZhNMPxqN1kK6e0ir762eAqU1NJV9WLp5kztNkIdo3SYMckiXQ2EfHskekE3YUXSLL74l+hTPFF/hw4ywcn0rDW3ZrUwkr+QjHQjm9wM0duWiawAAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "WeddingCi/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "DeployRoleArn": {
+   "Description": "ARN of the IAM role for GitHub Actions to assume via OIDC",
+   "Value": {
+    "Fn::GetAtt": [
+     "GitHubActionsDeployRoleA6F4AD3D",
+     "Arn"
+    ]
+   }
+  },
+  "OidcProviderArn": {
+   "Description": "ARN of the GitHub Actions OIDC identity provider",
+   "Value": "arn:aws:iam::268094410367:oidc-provider/token.actions.githubusercontent.com"
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

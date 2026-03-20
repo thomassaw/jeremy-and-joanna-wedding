@@ -1,0 +1,21 @@
+{
+  "version": "52.0.0",
+  "files": {
+    "afe82ace2f69396a041feb114342c679a363cfe7734760161f6f983bed6b52e4": {
+      "displayName": "WeddingCi Template",
+      "source": {
+        "path": "WeddingCi.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "268094410367-ap-southeast-1-f89323c6": {
+          "bucketName": "cdk-hnb659fds-assets-268094410367-ap-southeast-1",
+          "objectKey": "afe82ace2f69396a041feb114342c679a363cfe7734760161f6f983bed6b52e4.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::268094410367:role/cdk-hnb659fds-file-publishing-role-268094410367-ap-southeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

@@ -1,0 +1,38 @@
+{
+  "/WeddingCi/DeployRoleArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DeployRoleArn"
+    }
+  ],
+  "/WeddingCi/OidcProviderArn": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "OidcProviderArn"
+    }
+  ],
+  "/WeddingCi/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    }
+  ],
+  "/WeddingCi/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    }
+  ],
+  "/WeddingCi/GitHubActionsDeployRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "GitHubActionsDeployRoleA6F4AD3D"
+    }
+  ],
+  "/WeddingCi/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    }
+  ]
+}
