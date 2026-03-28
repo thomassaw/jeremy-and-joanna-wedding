@@ -39,7 +39,7 @@ export class ApiStack extends cdk.Stack {
       environment: {
         TABLE_NAME: table.tableName,
         GOOGLE_CLIENT_ID: "467658976945-lup298srub16p8k0n0ll29ml75agfu4s.apps.googleusercontent.com",
-        ADMIN_EMAILS: "tom@solutions.com.sg",
+        ADMIN_EMAILS: "tom@solutions.com.sg,jeremyyychee@gmail.com,joanna82@gmail.com",
       },
       bundling: {
         format: lambda.OutputFormat.ESM,
