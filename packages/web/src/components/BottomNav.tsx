@@ -1,4 +1,11 @@
-const navItems = [
+interface NavItem {
+  label: string
+  icon: string
+  href?: string
+  action?: string
+}
+
+const navItems: NavItem[] = [
   { label: 'Contact', icon: '📞', href: '.contact-section' },
   // { label: 'Song', icon: '🎵', action: 'music' },
   { label: 'Venue', icon: '📍', href: '.venue-section' },
@@ -10,7 +17,7 @@ interface Props {
 }
 
 export default function BottomNav({ onMusicToggle }: Props) {
-  function handleClick(item: typeof navItems[number]) {
+  function handleClick(item: NavItem) {
     if (item.action === 'music') {
       onMusicToggle()
       return
