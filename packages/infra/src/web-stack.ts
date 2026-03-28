@@ -63,6 +63,11 @@ export class WebStack extends cdk.Stack {
       ),
     });
 
+    new cdk.CfnOutput(this, "DistributionId", {
+      value: distribution.distributionId,
+      description: "CloudFront Distribution ID",
+    });
+
     new cdk.CfnOutput(this, "SiteUrl", {
       value: `https://${props.hostedZone.zoneName}`,
       description: "Website URL",

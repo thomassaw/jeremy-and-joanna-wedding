@@ -42,3 +42,10 @@ jobs:
 
       - name: Deploy CDK stacks
         run: cd packages/infra && npx cdk deploy WeddingDns WeddingApi WeddingWeb --require-approval never
+
+      - name: Invalidate CloudFront cache
+        run: |
+          DIST_ID=$(aws cloudformation describe-stacks --stack-name WeddingWeb --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text 2>/dev/null || true)
+          if [ -n "$DIST_ID" ] && [ "$DIST_ID" != "None" ]; then
+            aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+          fi
