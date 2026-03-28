@@ -25,7 +25,7 @@ export default function Gallery() {
             <img
               key={i}
               src={src}
-              alt={`Jeremy & Joanna moment ${i + 1}`}
+              alt={`Joanna & Jeremy moment ${i + 1}`}
               loading="lazy"
               onClick={() => setLightbox(i)}
             />

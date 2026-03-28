@@ -198,8 +198,8 @@ const DEFAULT_SETTINGS = {
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3983.786!2d101.7372!3d3.1590!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc37d3a42e95e1%3A0x1e3f2e5f36e0a40!2sM+Resort+%26+Hotel+Kuala+Lumpur!5e0!3m2!1sen!2smy!4v1',
   },
   contacts: [
-    { name: 'Jeremy', phone: '+60123456789', role: 'Groom' },
     { name: 'Joanna', phone: '+60123456789', role: 'Bride' },
+    { name: 'Jeremy', phone: '+60123456789', role: 'Groom' },
   ],
 }
 

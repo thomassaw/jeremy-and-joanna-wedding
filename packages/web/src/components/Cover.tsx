@@ -12,9 +12,9 @@ export default function Cover({ opened, onOpen }: Props) {
           You are cordially invited to<br />the wedding celebration of
         </p>
         <h1 className="cover-names">
-          <span className="groom">Jeremy</span>
-          <span className="ampersand">&amp;</span>
           <span className="bride">Joanna</span>
+          <span className="ampersand">&amp;</span>
+          <span className="groom">Jeremy</span>
         </h1>
         <p className="cover-date">20 . 09 . 2026</p>
         <button className="btn-open" onClick={onOpen}>

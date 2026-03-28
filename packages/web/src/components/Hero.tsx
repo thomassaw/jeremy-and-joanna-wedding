@@ -11,16 +11,16 @@ export default function Hero({ groomName, brideName }: Props) {
       <div className="container">
         <p className="script-text">Together with their families</p>
         <h2 className="couple-names">
-          <span className="groom-full">{groomName}</span>
-          <span className="amp">&amp;</span>
           <span className="bride-full">{brideName}</span>
+          <span className="amp">&amp;</span>
+          <span className="groom-full">{groomName}</span>
         </h2>
         <p className="invite-line">
           request the pleasure of your company<br />
           at the celebration of their marriage
         </p>
         <div className="hero-photo">
-          <img src={HERO_IMAGE} alt={`${groomName} & ${brideName}`} />
+          <img src={HERO_IMAGE} alt={`${brideName} & ${groomName}`} />
         </div>
         <div className="divider" />
       </div>

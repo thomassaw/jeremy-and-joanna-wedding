@@ -1,6 +1,6 @@
 const DEFAULT_CONTACTS = [
-  { name: 'Jeremy', phone: '+60123456789', role: 'Groom' },
   { name: 'Joanna', phone: '+60123456789', role: 'Bride' },
+  { name: 'Jeremy', phone: '+60123456789', role: 'Groom' },
 ]
 
 interface Props {

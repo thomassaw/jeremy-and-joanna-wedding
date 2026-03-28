@@ -13,7 +13,7 @@ export default function Footer({ groomName, brideName, weddingDate }: Props) {
   return (
     <footer className="footer">
       <div className="container">
-        <p className="footer-names">{groomFirst} &amp; {brideFirst}</p>
+        <p className="footer-names">{brideFirst} &amp; {groomFirst}</p>
         <p className="footer-date">{formatted}</p>
         <p className="footer-note">We look forward to celebrating with you</p>
       </div>

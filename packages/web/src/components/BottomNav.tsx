@@ -1,6 +1,6 @@
 const navItems = [
   { label: 'Contact', icon: '📞', href: '.contact-section' },
-  { label: 'Song', icon: '🎵', action: 'music' },
+  // { label: 'Song', icon: '🎵', action: 'music' },
   { label: 'Venue', icon: '📍', href: '.venue-section' },
   { label: 'RSVP', icon: '💌', href: '.rsvp-section' },
 ]

@@ -33,7 +33,7 @@ function googleCalUrl(evt: EventItem) {
   const params = new URLSearchParams({
     action: 'TEMPLATE',
     text: evt.title,
-    details: 'Wedding of Jeremy Chee & Joanna Tong',
+    details: 'Wedding of Joanna Tong & Jeremy Chee',
     location: VENUE_FULL,
   })
   return `https://calendar.google.com/calendar/render?${params}`
@@ -46,7 +46,7 @@ function icsBlob(evt: EventItem) {
     'BEGIN:VEVENT',
     `SUMMARY:${evt.title}`,
     `LOCATION:${VENUE_FULL}`,
-    'DESCRIPTION:Wedding of Jeremy Chee & Joanna Tong',
+    'DESCRIPTION:Wedding of Joanna Tong & Jeremy Chee',
     'END:VEVENT',
     'END:VCALENDAR',
   ].join('\r\n')
