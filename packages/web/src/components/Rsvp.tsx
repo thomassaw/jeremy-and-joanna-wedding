@@ -2,11 +2,13 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import type { RsvpData } from '../App'
 
 interface Props {
-  onSubmit: (data: RsvpData) => void
+  onSubmit: (data: RsvpData) => Promise<void>
 }
 
 export default function Rsvp({ onSubmit }: Props) {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState<RsvpData>({
     name: '',
     email: '',
@@ -19,10 +21,18 @@ export default function Rsvp({ onSubmit }: Props) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    onSubmit(form)
-    setSubmitted(true)
+    setSubmitting(true)
+    setError('')
+    try {
+      await onSubmit(form)
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -95,8 +105,9 @@ export default function Rsvp({ onSubmit }: Props) {
               onChange={handleChange}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Send RSVP
+          {error && <p className="rsvp-error">{error}</p>}
+          <button type="submit" className="btn btn-primary" disabled={submitting}>
+            {submitting ? 'Sending...' : 'Send RSVP'}
           </button>
         </form>
       </div>

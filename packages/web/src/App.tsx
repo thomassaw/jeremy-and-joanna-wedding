@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Cover from './components/Cover'
 import Hero from './components/Hero'
 import Countdown from './components/Countdown'
@@ -6,12 +6,13 @@ import Events from './components/Events'
 import Venue from './components/Venue'
 import Gallery from './components/Gallery'
 import Rsvp from './components/Rsvp'
+import AttendanceCounter from './components/AttendanceCounter'
 import Wishes from './components/Wishes'
+import Contact from './components/Contact'
 import Footer from './components/Footer'
-import MusicToggle from './components/MusicToggle'
+import BottomNav from './components/BottomNav'
 import AnimateOnScroll from './components/AnimateOnScroll'
-
-const WEDDING_DATE = '2026-09-20T11:00:00+08:00'
+import { submitRsvp, fetchWishes, fetchStats, fetchSettings, type SiteSettings } from './api'
 
 export interface RsvpData {
   name: string
@@ -29,13 +30,20 @@ export interface Wish {
 export default function App() {
   const [opened, setOpened] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const [playing, setPlaying] = useState(false)
-  const [wishes, setWishes] = useState<Wish[]>(() => {
-    const saved: RsvpData[] = JSON.parse(localStorage.getItem('wedding_rsvps') || '[]')
-    return saved
-      .filter((r) => r.wishes?.trim())
-      .map((r) => ({ name: r.name, text: r.wishes }))
-  })
+  const playingRef = useRef(false)
+  const [wishes, setWishes] = useState<Wish[]>([])
+  const [stats, setStats] = useState({ attending: 0, declined: 0 })
+  const [settings, setSettings] = useState<SiteSettings | null>(null)
+
+  useEffect(() => {
+    fetchSettings().then(setSettings).catch(() => {})
+    fetchWishes()
+      .then((data) => setWishes(data.map((w) => ({ name: w.name, text: w.text }))))
+      .catch(() => {})
+    fetchStats()
+      .then((data) => setStats({ attending: data.totalGuests, declined: data.declined }))
+      .catch(() => {})
+  }, [])
 
   function handleOpen() {
     setOpened(true)
@@ -45,7 +53,7 @@ export default function App() {
       audio.loop = true
       audio.volume = 0.4
       audioRef.current = audio
-      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false))
+      audio.play().then(() => playingRef.current = true).catch(() => playingRef.current = false)
     } catch {
       // No audio file — music is optional
     }
@@ -55,20 +63,30 @@ export default function App() {
     const audio = audioRef.current
     if (!audio) return
     if (audio.paused) {
-      audio.play().then(() => setPlaying(true))
+      audio.play().then(() => playingRef.current = true)
     } else {
       audio.pause()
-      setPlaying(false)
+      playingRef.current = false
     }
   }
 
-  function handleRsvp(data: RsvpData) {
-    const rsvps: RsvpData[] = JSON.parse(localStorage.getItem('wedding_rsvps') || '[]')
-    rsvps.push({ ...data })
-    localStorage.setItem('wedding_rsvps', JSON.stringify(rsvps))
+  async function handleRsvp(data: RsvpData) {
     if (data.wishes?.trim()) {
       setWishes((prev) => [{ name: data.name, text: data.wishes }, ...prev])
     }
+    if (data.attendance === 'yes') {
+      setStats((prev) => ({ ...prev, attending: prev.attending + Number(data.guests || 1) }))
+    } else if (data.attendance === 'no') {
+      setStats((prev) => ({ ...prev, declined: prev.declined + 1 }))
+    }
+
+    await submitRsvp({
+      name: data.name,
+      email: data.email,
+      attendance: data.attendance,
+      guests: Number(data.guests || 1),
+      wishes: data.wishes,
+    })
   }
 
   return (
@@ -78,19 +96,22 @@ export default function App() {
       {opened && (
         <main className="main-content">
           <AnimateOnScroll>
-            <Hero />
+            <Hero
+              groomName={settings?.groomName ?? 'Jeremy Chee'}
+              brideName={settings?.brideName ?? 'Joanna Tong'}
+            />
           </AnimateOnScroll>
 
           <AnimateOnScroll>
-            <Countdown targetDate={WEDDING_DATE} />
+            <Countdown targetDate={settings?.weddingDate ?? '2026-09-20T11:00:00+08:00'} />
           </AnimateOnScroll>
 
           <AnimateOnScroll>
-            <Events />
+            <Events events={settings?.events} />
           </AnimateOnScroll>
 
           <AnimateOnScroll>
-            <Venue />
+            <Venue venue={settings?.venue} />
           </AnimateOnScroll>
 
           <AnimateOnScroll>
@@ -102,11 +123,23 @@ export default function App() {
           </AnimateOnScroll>
 
           <AnimateOnScroll>
+            <AttendanceCounter attending={stats.attending} declined={stats.declined} />
+          </AnimateOnScroll>
+
+          <AnimateOnScroll>
             <Wishes wishes={wishes} />
           </AnimateOnScroll>
 
-          <Footer />
-          <MusicToggle playing={playing} onToggle={toggleMusic} />
+          <AnimateOnScroll>
+            <Contact contacts={settings?.contacts} />
+          </AnimateOnScroll>
+
+          <Footer
+            groomName={settings?.groomName ?? 'Jeremy'}
+            brideName={settings?.brideName ?? 'Joanna'}
+            weddingDate={settings?.weddingDate ?? '2026-09-20T11:00:00+08:00'}
+          />
+          <BottomNav onMusicToggle={toggleMusic} />
         </main>
       )}
     </>

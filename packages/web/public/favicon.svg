@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#8b6f5e"/>
+  <text x="32" y="38" text-anchor="middle" font-family="Georgia, serif" font-size="22" font-weight="300" fill="#faf8f5" letter-spacing="1">
+    J <tspan font-size="14" font-style="italic" fill="#c9a87c">&amp;</tspan> J
+  </text>
+</svg>

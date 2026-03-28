@@ -1,14 +1,31 @@
 import * as cdk from "aws-cdk-lib";
 import { WebStack } from "./web-stack";
 import { CiStack } from "./ci-stack";
+import { DnsStack } from "./dns-stack";
+import { ApiStack } from "./api-stack";
 
 const app = new cdk.App();
 
-const env = {
-  account: "268094410367",
-  region: "ap-southeast-1",
-};
+const account = "268094410367";
 
-new WebStack(app, "WeddingWeb", { env });
+const dnsStack = new DnsStack(app, "WeddingDns", {
+  env: { account, region: "us-east-1" },
+  crossRegionReferences: true,
+});
 
-new CiStack(app, "WeddingCi", { env });
+new WebStack(app, "WeddingWeb", {
+  env: { account, region: "ap-southeast-1" },
+  crossRegionReferences: true,
+  hostedZone: dnsStack.hostedZone,
+  certificate: dnsStack.certificate,
+});
+
+new ApiStack(app, "WeddingApi", {
+  env: { account, region: "ap-southeast-1" },
+  crossRegionReferences: true,
+  hostedZone: dnsStack.hostedZone,
+});
+
+new CiStack(app, "WeddingCi", {
+  env: { account, region: "ap-southeast-1" },
+});

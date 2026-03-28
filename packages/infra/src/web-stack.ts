@@ -3,11 +3,19 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as route53 from "aws-cdk-lib/aws-route53";
+import * as route53Targets from "aws-cdk-lib/aws-route53-targets";
+import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import { Construct } from "constructs";
 import * as path from "path";
 
+interface WebStackProps extends cdk.StackProps {
+  hostedZone: route53.IHostedZone;
+  certificate: acm.ICertificate;
+}
+
 export class WebStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: WebStackProps) {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, "WebBucket", {
@@ -22,6 +30,8 @@ export class WebStack extends cdk.Stack {
         viewerProtocolPolicy:
           cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       },
+      domainNames: [props.hostedZone.zoneName],
+      certificate: props.certificate,
       defaultRootObject: "index.html",
       errorResponses: [
         {
@@ -46,9 +56,16 @@ export class WebStack extends cdk.Stack {
       distributionPaths: ["/*"],
     });
 
-    new cdk.CfnOutput(this, "DistributionUrl", {
-      value: `https://${distribution.distributionDomainName}`,
-      description: "CloudFront URL",
+    new route53.ARecord(this, "AliasRecord", {
+      zone: props.hostedZone,
+      target: route53.RecordTarget.fromAlias(
+        new route53Targets.CloudFrontTarget(distribution),
+      ),
+    });
+
+    new cdk.CfnOutput(this, "SiteUrl", {
+      value: `https://${props.hostedZone.zoneName}`,
+      description: "Website URL",
     });
   }
 }
